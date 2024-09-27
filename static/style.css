@@ -2,11 +2,11 @@ body {
     font-family: 'Copperplate', 'Copperplate Gothic Light', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e04141;
+    background-color: #000ce8;
 }
 
 nav {
-    background-color: #e0d3d3;
+    background-color: #ffffff;
     padding: 10px;
 }
 
@@ -36,5 +36,46 @@ main {
 }
 
 h1 {
+    
     color: #ffffff;
+}
+
+h5 {
+    color: #ffffff;
+}
+/* Styling untuk navigasi menu */
+.nav-menu {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 20px; /* Jarak antar menu */
+}
+
+.menu-item {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF; /* Warna latar belakang */
+    color: white;
+    border-radius: 12px; /* Membulatkan ujung kotak */
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: #0056b3; /* Warna saat hover */
+    transform: translateY(-2px); /* Efek hover */
+}
+
+.menu-item:active {
+    transform: translateY(1px); /* Efek saat diklik */
+}
+
+/* Styling untuk kotak bersudut siku */
+.content-box {
+    padding: 10px;
+    border: 2px solid #000; /* Warna dan ukuran border */
+    background-color: #f9f9f9; /* Warna latar belakang */
+    margin: 10px auto; /* Memberikan margin otomatis di kiri dan kanan */
+    max-width: 800px; /* Membatasi lebar maksimal kotak */
+    border-radius: 0px; /* Menjaga sudut tetap siku (tanpa rounding) */
 }
