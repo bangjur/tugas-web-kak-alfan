@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    image: flaskapp:latest
+    build: .
+    restart: "no"
+    ports:
+      - "5000:5000"
+    volumes:
+      - /home/ubuntu/proyek-stupen/tugas-web-kak-alfan/templates:/home/ubuntu/proyek-stupen/tugas-web-kak-alfan/ # Pastikan untuk menyesuaikan path
