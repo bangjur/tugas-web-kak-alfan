@@ -1,6 +1,10 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 from flask_mail import Mail, Message
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
 
 app = Flask(__name__)
 
@@ -8,15 +12,15 @@ app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'azzuriptr@gmail.com' # email sender untuk aws ubuntu instance
-app.config['MAIL_PASSWORD'] = 'mjre ndey nuvi jqdt' # app passwd for Mail di settings akun google
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME') # Email sender dari environment variable
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD') # Password dari environment variable
 mail = Mail(app)
 
 # Database connection details
-DB_HOST = "database-1.cleiw3e6jqy9.us-east-1.rds.amazonaws.com" # endpoint database di aws console
-DB_NAME = "contohdb"
-DB_USER = "postgresql"
-DB_PASS = "postgresql"
+DB_HOST = os.getenv('DB_HOST')
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASS = os.getenv('DB_PASS')
 
 def connect_db():
     return psycopg2.connect(host=DB_HOST, database=DB_NAME, user=DB_USER, password=DB_PASS)
