@@ -51,7 +51,7 @@ def kontak():
         cur.execute("INSERT INTO laman_kontak (nama, email, isi_pesan) VALUES (%s, %s, %s)", (nama, email, isi_pesan))
         conn.commit()
 
-        # Send email
+        # respon email orang yang udah isi pesan dan submit
         msg = Message('Pesan Baru dari Kontak', sender='azzuriptr@gmail.com', recipients=[email])
         msg.body = f"Nama: {nama}\nEmail: {email}\nPesan: {'Terimakasih sudah submit pesanmu :) Nanti kubaca deh wkwk'}"
         mail.send(msg)
