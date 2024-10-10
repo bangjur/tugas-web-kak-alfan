@@ -4,7 +4,7 @@ import psycopg2
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 
-load_dotenv()  # Load environment variables from .env file
+load_dotenv()  # load environment variables from .env file
 
 app = Flask(__name__)
 
