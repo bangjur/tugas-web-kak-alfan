@@ -1,6 +1,25 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+import psycopg2
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
+
+# Email Configuration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'azzuriptr@gmail.com' # email sender untuk aws ubuntu instance
+app.config['MAIL_PASSWORD'] = 'mjre ndey nuvi jqdt' # app passwd for Mail di settings akun google
+mail = Mail(app)
+
+# Database connection details
+DB_HOST = "database-1.cleiw3e6jqy9.us-east-1.rds.amazonaws.com" # endpoint database di aws console
+DB_NAME = "contohdb"
+DB_USER = "postgresql"
+DB_PASS = "postgresql"
+
+def connect_db():
+    return psycopg2.connect(host=DB_HOST, database=DB_NAME, user=DB_USER, password=DB_PASS)
 
 @app.route('/')
 def index():
@@ -14,9 +33,33 @@ def hobi():
 def pekerjaan():
     return render_template('pekerjaan.html')
 
-@app.route('/kontak')
+@app.route('/kontak', methods=['GET', 'POST'])
 def kontak():
-    return render_template('kontak.html')
+    conn = connect_db()
+    cur = conn.cursor()
+
+    if request.method == 'POST':
+        nama = request.form['nama']
+        email = request.form['email']
+        isi_pesan = request.form['isi_pesan']
+
+        # Insert data into the database
+        cur.execute("INSERT INTO laman_kontak (nama, email, isi_pesan) VALUES (%s, %s, %s)", (nama, email, isi_pesan))
+        conn.commit()
+
+        # Send email
+        msg = Message('Pesan Baru dari Kontak', sender='azzuriptr@gmail.com', recipients=[email])
+        msg.body = f"Nama: {nama}\nEmail: {email}\nPesan: {'Terimakasih sudah submit pesanmu :) Nanti kubaca deh wkwk'}"
+        mail.send(msg)
+
+    # Retrieve data from the database to display in the table
+    cur.execute("SELECT nama, email, isi_pesan FROM laman_kontak")
+    pesan_list = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return render_template('kontak.html', pesan_list=pesan_list)
 
 @app.route('/pendidikan')
 def pendidikan():

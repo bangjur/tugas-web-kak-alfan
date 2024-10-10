@@ -6,4 +6,35 @@
         <p>Email: 22210136@unima.ac.id</p>
         <p>Telepon: 0856-9615-5258</p>
     </div>
+
+    <!-- Add form for user input -->
+    <form method="POST" action="/kontak">
+        <label for="nama">Nama:</label><br>
+        <input type="text" id="nama" name="nama" required><br><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="isi_pesan">Isi Pesan:</label><br>
+        <textarea id="isi_pesan" name="isi_pesan" required></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Table to display submitted data -->
+    <h2>Pesan yang Dikirim</h2>
+    <table border="1">
+        <tr>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Isi Pesan</th>
+        </tr>
+        {% for pesan in pesan_list %}
+        <tr>
+            <td>{{ pesan[0] }}</td>
+            <td>{{ pesan[1] }}</td>
+            <td>{{ pesan[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

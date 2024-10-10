@@ -7,4 +7,5 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - /home/ubuntu/proyek-stupen/tugas-web-kak-alfan/templates:/home/ubuntu/proyek-stupen/tugas-web-kak-alfan/ # Pastikan untuk menyesuaikan path
+      - /home/ubuntu/proyek-stupen/tugas-web-kak-alfan/templates:/app/templates  # Mount the templates folder
+      - /home/ubuntu/proyek-stupen/tugas-web-kak-alfan/app.py:/app/app.py        # Mount app.py
