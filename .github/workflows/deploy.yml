@@ -1,0 +1,22 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # Ganti dengan nama branch yang Anda gunakan
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.UBUNTU_INSTANCE_EC2 }}
+
+      - name: Pull changes on server
+        run: ssh ubuntu@3.223.49.50 'cd /home/ubuntu/proyek-stupen/tugas-web-kak-alfan/ && git pull origin main'
