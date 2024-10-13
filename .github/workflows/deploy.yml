@@ -18,5 +18,8 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.UBUNTU_INSTANCE_EC2 }}
 
+      - name: Add server to known hosts
+        run: ssh-keyscan 3.223.49.50 >> ~/.ssh/known_hosts
+
       - name: Pull changes on server
         run: ssh ubuntu@3.223.49.50 'cd /home/ubuntu/proyek-stupen/tugas-web-kak-alfan/ && git pull origin main'
