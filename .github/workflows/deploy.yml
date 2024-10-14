@@ -17,6 +17,10 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.UBUNTU_INSTANCE_EC2 }}
+        
+    - name: Add EC2 host to known_hosts
+      run: |
+        ssh-keyscan -H 3.223.49.50 >> ~/.ssh/known_hosts
 
     - name: Deploy to server
       run: |
