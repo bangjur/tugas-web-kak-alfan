@@ -18,9 +18,11 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.UBUNTU_INSTANCE_EC2 }}
         
-    - name: Add EC2 host to known_hosts
+    - name: Add SSH key to known_hosts
       run: |
-        ssh-keyscan -H 3.223.49.50 >> ~/.ssh/known_hosts
+        mkdir -p ~/.ssh
+        echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM+bxQuCbAQCJMS8IoaKZb9hZR4xB33zEfMavPi62Bxc root@ip-172-31-43-188" >> ~/.ssh/known_hosts
+        chmod 600 ~/.ssh/known_hosts
 
     - name: Deploy to server
       run: |
