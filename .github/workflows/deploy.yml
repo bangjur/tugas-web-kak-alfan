@@ -20,4 +20,8 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@3.223.49.50 "sudo su && cd /home/ubuntu/proyek-stupen/tugas-web-kak-alfan && touch file-debug.txt && git pull origin main"
+        ssh -o StrictHostKeyChecking=no ubuntu@3.223.49.50 '
+        sudo touch /home/ubuntu/proyek-stupen/tugas-web-kak-alfan/file-debug.txt &&
+        cd /home/ubuntu/proyek-stupen/tugas-web-kak-alfan &&
+        sudo git pull origin main
+        '
