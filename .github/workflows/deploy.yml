@@ -1,32 +1,26 @@
-name: Deploy to Server
+name: Deploy to AWS
 
 on:
   push:
     branches:
-      - main  # Ganti dengan nama branch yang Anda gunakan
+      - main  # or any branch you want to trigger the action
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Setup SSH Key dan agent
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: |
-            ${{ secrets.UBUNTU_INSTANCE_EC2 }}
-
-      # Menambahkan server ke known hosts untuk menghindari verifikasi kunci host gagal
-      - name: Add server to known hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan 3.223.49.50 >> ~/.ssh/known_hosts
-
-      # Menarik perubahan dari GitHub ke server
-      - name: Pull changes on server
-        run: ssh ubuntu@3.223.49.50 'cd /home/ubuntu/proyek-stupen/tugas-web-kak-alfan/ && git pull origin main'
-
+    - name: SSH into AWS and Pull Latest Changes
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.IP_UBUNTU_INSTANCE }}
+        username: ubuntu
+        key: ${{ secrets.UBUNTU_INSTANCE_EC2 }}
+        script: |
+          cd /home/ubuntu/proyek-stupen/tugas-web-kak-alfan
+          git pull origin main  # adjust for your branch
+          # docker-compose down
+          # docker-compose up --build -d
