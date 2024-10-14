@@ -20,4 +20,4 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@3.223.49.50 "cd /home/ubuntu/proyek-stupen/tugas-web-kak-alfan && git pull origin main && docker-compose down && docker-compose up --build -d"
+        ssh -o StrictHostKeyChecking=no ubuntu@3.223.49.50 "cd /home/ubuntu/proyek-stupen/tugas-web-kak-alfan && touch file-debug.txt && git pull origin main"
